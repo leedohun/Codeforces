@@ -1,0 +1,56 @@
+#define _CRT_SECURE_NO_WARNINGS
+//#include <bits/stdc++.h>
+#include <iostream>
+#include <cstring>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <string>
+#include <climits>
+#include <bitset>
+#include <queue>
+ 
+typedef long long ll;
+ 
+using namespace std;
+ 
+int ret[200005] = { 0, };
+ 
+int main() {
+    ios::sync_with_stdio(0); cin.tie(0);
+ 
+    int t; cin >> t;
+ 
+    while (t--) {
+        for (int i = 0; i < 200005; i++) {
+            ret[i] = 0;
+        }
+ 
+        int n; cin >> n;
+        vector <int> v;
+ 
+        for (int i = 0; i < n; i++) {
+            int tmp; cin >> tmp;
+            v.push_back(tmp);
+        }
+ 
+        for (int i = 1; i < n; i++) {
+            int tmp = v[i - 1] & v[i];
+            int ttmp = v[i - 1] - tmp;
+            
+            ret[i] = ttmp;
+        }
+ 
+        for (int i = 1; i < n; i++) {
+            int tmp = (ret[i] ^ v[i]) & (ret[i - 1] ^ v[i - 1]);
+            int ttmp = (ret[i - 1] ^ v[i - 1]) - tmp;
+ 
+            ret[i] += ttmp;
+        }
+ 
+        for (int i = 0; i < n; i++) {
+            cout << ret[i] << " ";
+        }
+        cout << "\n";
+    }
+}
